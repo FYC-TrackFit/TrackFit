@@ -15,9 +15,6 @@ class CaloriesSummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double progress = (totalCalories / objectifCalories).clamp(0.0, 1.0); // Calcul du pourcentage de progression
 
-    // Couleur plus claire pour l'indicateur circulaire
-    final Color lighterColor = cardColor.withOpacity(0.9);
-
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(16),
@@ -62,7 +59,7 @@ class CaloriesSummaryCard extends StatelessWidget {
                       ),
                       Text(
                         totalCalories >= objectifCalories ? '/$objectifCalories' : 'restantes',
-                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        style: const TextStyle(fontSize: 18, color: Colors.black),
                       ),
                     ],
                   ),

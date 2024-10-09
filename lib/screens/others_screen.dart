@@ -5,10 +5,10 @@ class OthersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Autres'),
+        title: const Text('Autres'),
       ),
-      body: Center(
-        child: Text('Autres fonctionnalités'),
+      body: const Center(
+        child: const Text('Autres fonctionnalités'),
       ),
     );
   }

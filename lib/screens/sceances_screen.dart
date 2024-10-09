@@ -7,7 +7,7 @@ class SceancesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Séances'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Liste des séances à venir'),
       ),
     );

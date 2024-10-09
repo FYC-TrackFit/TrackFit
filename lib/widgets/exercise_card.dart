@@ -9,8 +9,8 @@ class ExerciseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16), // Marges entre les éléments
-      padding: EdgeInsets.all(16), // Padding interne
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16), // Marges entre les éléments
+      padding: const EdgeInsets.all(16), // Padding interne
       decoration: BoxDecoration(
         color: Colors.orange[100], // Couleur de fond orange clair
         borderRadius: BorderRadius.circular(12), // Coins arrondis
@@ -24,7 +24,7 @@ class ExerciseCard extends StatelessWidget {
             size: 40,
             color: Colors.orange[800], // Couleur d'icône
           ),
-          SizedBox(width: 16), // Espace entre l'icône et le texte
+          const SizedBox(width: 16), // Espace entre l'icône et le texte
           // Colonne contenant les informations
           Expanded(
             child: Column(
@@ -39,12 +39,12 @@ class ExerciseCard extends StatelessWidget {
                     color: Colors.orange[900],
                   ),
                 ),
-                SizedBox(height: 8), // Espace entre les lignes
+                const SizedBox(height: 8), // Espace entre les lignes
                 // Deuxième ligne : icône de flamme et calories brûlées
                 Row(
                   children: [
                     Icon(Icons.local_fire_department, color: Colors.orange[700]),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       '${exercise.caloriePerdue} kcal',
                       style: TextStyle(
@@ -54,12 +54,12 @@ class ExerciseCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 8), // Espace entre les lignes
+                const SizedBox(height: 8), // Espace entre les lignes
                 // Troisième ligne : icône de minuterie et durée de l'exercice
                 Row(
                   children: [
                     Icon(Icons.timer, color: Colors.orange[700]),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       '${exercise.dureeRealisee.inMinutes} min',
                       style: TextStyle(
