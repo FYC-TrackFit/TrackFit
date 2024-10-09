@@ -7,7 +7,7 @@ class CaloriesSummaryCard extends StatelessWidget {
 
   CaloriesSummaryCard({
     required this.totalCalories,
-    this.objectifCalories = 2400,
+    this.objectifCalories = 10000,
     this.cardColor = const Color(0xFFCCDEC1), // Couleur verte claire par défaut
   });
 
@@ -46,6 +46,7 @@ class CaloriesSummaryCard extends StatelessWidget {
                       valueColor: const AlwaysStoppedAnimation<Color>(
                         Colors.black, // Couleur du cercle blanc transparent
                       ),
+                      strokeCap: StrokeCap.round,
                     ),
                   ),
                   Column(
