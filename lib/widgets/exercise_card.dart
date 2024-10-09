@@ -20,7 +20,7 @@ class ExerciseCard extends StatelessWidget {
         children: [
           // Icône représentant le type de sport
           Icon(
-            Icons.directions_bike, // Icône par défaut, vous pouvez le changer selon le sport
+            exercise.iconType, // Icône par défaut, vous pouvez le changer selon le sport
             size: 40,
             color: Colors.orange[800], // Couleur d'icône
           ),

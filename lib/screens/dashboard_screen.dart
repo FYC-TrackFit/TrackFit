@@ -10,12 +10,14 @@ class DashboardScreen extends StatelessWidget {
         id: 1,
         libelle: 'Course à pied',
         dureeRealisee: Duration(minutes: 30),
-        caloriePerdue: 300),
+        caloriePerdue: 300,
+        iconType: Icons.directions_run),
     Exercice(
         id: 2,
         libelle: 'Cyclisme',
         dureeRealisee: Duration(minutes: 45),
-        caloriePerdue: 400),
+        caloriePerdue: 400,
+        iconType: Icons.directions_bike),
   ];
 
   @override
