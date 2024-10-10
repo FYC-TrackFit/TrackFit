@@ -1,7 +1,7 @@
 import 'dart:ui'; // Nécessaire pour utiliser l'effet de flou
 import 'package:flutter/material.dart';
 import 'screens/dashboard_screen.dart';
-import 'screens/sceances_screen.dart';
+import 'screens/seance_screen.dart';
 import 'screens/others_screen.dart';
 
 void main() {
@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Liste des écrans correspondant à chaque onglet
   static final List<Widget> _widgetOptions = <Widget>[
     DashboardScreen(),
-    SceancesScreen(),
+    SeanceScreen(),
     OthersScreen(),
   ];
 

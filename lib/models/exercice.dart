@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
-
 import 'type_exercice.dart';
 
 class Exercice {
   final int id;
   final String libelle;
-  final Duration dureeRealisee;
-  final int caloriePerdue;
+  Duration dureeRealisee;
+  int caloriePerdue;
   final TypeExercice typeExercice;
 
   Exercice({
