@@ -71,11 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Container(
         height: 70, // Hauteur de la barre
         decoration: BoxDecoration(
-          color: Colors.black
-              .withOpacity(0.4), // Couleur noire avec opacité de 0.6
+          // Couleur noire avec opacité de 0.6
           borderRadius: BorderRadius.circular(30), // Coins arrondis
         ),
         child: Stack(
+          alignment: AlignmentDirectional.center,
           children: [
             // Arrière-plan avec effet de flou
             BackdropFilter(
@@ -88,33 +88,31 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             // Contenu de la BottomNavigationBar
             BottomNavigationBar(
-              backgroundColor: Colors
-                  .transparent, // Fond transparent pour montrer le flou en dessous
-              elevation: 0, // Retirer l'ombre de la BottomNavigationBar
+              backgroundColor: Colors.transparent,
+              // Fond transparent pour montrer le flou en dessous
+              elevation: 0,
+              // Retirer l'ombre de la BottomNavigationBar
               type: BottomNavigationBarType.fixed,
-              selectedItemColor:
-                  Colors.white, // Couleur de l'élément sélectionné
-              unselectedItemColor: Colors.white
-                  .withOpacity(0.6), // Couleur des éléments non sélectionnés
-              selectedFontSize: 0, // Supprime l'espace pris par les labels
-              unselectedFontSize: 0, // Supprime l'espace pris par les labels
-              iconSize: 30, // Ajuste la taille des icônes
-              showSelectedLabels: false, // Supprime l'affichage des labels
-              showUnselectedLabels: false, // Supprime l'affichage des labels
+              selectedItemColor: Colors.white,
+              // Couleur de l'élément sélectionné
+              unselectedItemColor: Colors.white.withOpacity(0.6),
+              // Couleur des éléments non sélectionnés
+              iconSize: 30,
+              // Ajuste la taille des icônes
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.dashboard),
-                  label: '', // Supprime le label
+                  label: 'Résumé', // Supprime le label
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.fitness_center),
-                  label: '', // Supprime le label
+                  label: 'Ma séance', // Supprime le label
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.more_horiz),
-                  label: '', // Supprime le label
+                  label: 'Autres', // Supprime le label
                 ),
               ],
             ),

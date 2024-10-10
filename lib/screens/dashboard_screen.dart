@@ -2,115 +2,144 @@ import 'package:flutter/material.dart';
 import '../widgets/calories_summary_card.dart';
 import '../widgets/exercise_card.dart';
 import '../models/exercice.dart';
+import '../models/seance.dart';
+import '../models/type_exercice.dart';
+import '../models/categorie_exercice.dart';
+import '../widgets/seance_card.dart'; // Import du widget SeanceCard
 
 class DashboardScreen extends StatelessWidget {
-  // Données d'exemple pour les exercices
-  final List<Exercice> exercises = [
-    Exercice(
+  DashboardScreen({super.key}) {
+    initializeData();
+  }
+
+  // Données d'exemple pour les catégories d'exercice
+  final CategorieExercice cardioCategory = CategorieExercice(
+    id: 1,
+    libelle: 'Cardio',
+  );
+
+  final CategorieExercice strengthCategory = CategorieExercice(
+    id: 2,
+    libelle: 'Musculation',
+  );
+
+  // Données d'exemple pour les types d'exercice
+  late final TypeExercice runningType;
+  late final TypeExercice cyclingType;
+  late final TypeExercice swimmingType;
+  late final TypeExercice walkingType;
+
+  // Liste des exercices
+  final List<Exercice> exercises = [];
+
+  // Liste des séances
+  final List<Seance> seances = [];
+
+  void initializeData() {
+    // Initialisation des types d'exercice
+    runningType = TypeExercice(
+      id: 1,
+      libelle: 'Course à pied',
+      objectifDuree: const Duration(minutes: 30),
+      objectifCalorie: 300,
+      categorieExercice: cardioCategory,
+      iconType: Icons.directions_run,
+    );
+
+    cyclingType = TypeExercice(
+      id: 2,
+      libelle: 'Cyclisme',
+      objectifDuree: const Duration(minutes: 45),
+      objectifCalorie: 400,
+      categorieExercice: cardioCategory,
+      iconType: Icons.directions_bike,
+    );
+
+    swimmingType = TypeExercice(
+      id: 3,
+      libelle: 'Natation',
+      objectifDuree: const Duration(minutes: 60),
+      objectifCalorie: 500,
+      categorieExercice: cardioCategory,
+      iconType: Icons.pool,
+    );
+
+    walkingType = TypeExercice(
+      id: 4,
+      libelle: 'Marche',
+      objectifDuree: const Duration(minutes: 20),
+      objectifCalorie: 150,
+      categorieExercice: cardioCategory,
+      iconType: Icons.directions_walk,
+    );
+
+    // Initialisation des exercices
+    final Exercice runningExercise = Exercice(
       id: 1,
       libelle: 'Course à pied',
       dureeRealisee: const Duration(minutes: 30),
       caloriePerdue: 300,
-      iconType: Icons.directions_run, // Icône pour la course à pied
-    ),
-    Exercice(
+      typeExercice: runningType,
+    );
+
+    final Exercice cyclingExercise = Exercice(
       id: 2,
       libelle: 'Cyclisme',
       dureeRealisee: const Duration(minutes: 45),
       caloriePerdue: 400,
-      iconType: Icons.directions_bike, // Icône pour le cyclisme
-    ),
-    Exercice(
+      typeExercice: cyclingType,
+    );
+
+    final Exercice swimmingExercise = Exercice(
       id: 3,
       libelle: 'Natation',
       dureeRealisee: const Duration(minutes: 60),
       caloriePerdue: 500,
-      iconType: Icons.pool, // Icône pour la natation
-    ),
-    Exercice(
+      typeExercice: swimmingType,
+    );
+
+    final Exercice walkingExercise = Exercice(
       id: 4,
       libelle: 'Marche',
       dureeRealisee: const Duration(minutes: 20),
       caloriePerdue: 150,
-      iconType: Icons.directions_walk, // Icône pour la marche
-    ),
-    Exercice(
-      id: 5,
-      libelle: 'Musculation',
-      dureeRealisee: const Duration(minutes: 40),
-      caloriePerdue: 350,
-      iconType: Icons.fitness_center, // Icône pour la musculation
-    ),
-    Exercice(
-      id: 6,
-      libelle: 'Yoga',
-      dureeRealisee: const Duration(minutes: 50),
-      caloriePerdue: 200,
-      iconType: Icons.self_improvement, // Icône pour le yoga
-    ),
-    Exercice(
-      id: 7,
-      libelle: 'Tennis',
-      dureeRealisee: const Duration(minutes: 90),
-      caloriePerdue: 600,
-      iconType: Icons.sports_tennis, // Icône pour le tennis
-    ),
-    Exercice(
-      id: 8,
-      libelle: 'Basketball',
-      dureeRealisee: const Duration(minutes: 60),
-      caloriePerdue: 500,
-      iconType: Icons.sports_basketball, // Icône pour le basketball
-    ),
-    Exercice(
-      id: 9,
-      libelle: 'Football',
-      dureeRealisee: const Duration(minutes: 90),
-      caloriePerdue: 700,
-      iconType: Icons.sports_soccer, // Icône pour le football
-    ),
-    Exercice(
-      id: 10,
-      libelle: 'Boxe',
-      dureeRealisee: const Duration(minutes: 60),
-      caloriePerdue: 650,
-      iconType: Icons.sports_mma, // Icône pour la boxe
-    ),
-    Exercice(
-      id: 11,
-      libelle: 'Danse',
-      dureeRealisee: const Duration(minutes: 45),
-      caloriePerdue: 300,
-      iconType: Icons.music_note, // Icône pour la danse
-    ),
-    Exercice(
-      id: 12,
-      libelle: 'Escalade',
-      dureeRealisee: const Duration(minutes: 60),
-      caloriePerdue: 700,
-      iconType: Icons.terrain, // Icône pour l'escalade
-    ),
-    Exercice(
-      id: 13,
-      libelle: 'Ski',
-      dureeRealisee: const Duration(minutes: 120),
-      caloriePerdue: 900,
-      iconType: Icons.downhill_skiing, // Icône pour le ski
-    ),
-    Exercice(
-      id: 14,
-      libelle: 'Golf',
-      dureeRealisee: const Duration(minutes: 90),
-      caloriePerdue: 250,
-      iconType: Icons.sports_golf, // Icône pour le golf
-    ),
-  ];
+      typeExercice: walkingType,
+    );
+
+    exercises.addAll([
+      runningExercise,
+      cyclingExercise,
+      swimmingExercise,
+      walkingExercise,
+    ]);
+
+    // Initialisation des séances
+    final Seance seance1 = Seance(
+      id: 1,
+      libelle: 'Séance Matinale',
+      date: DateTime.now(),
+      objectifCalorie: 700,
+      exercices: [runningExercise, cyclingExercise],
+    );
+
+    final Seance seance2 = Seance(
+      id: 2,
+      libelle: 'Séance de l\'Après-midi',
+      date: DateTime.now(),
+      objectifCalorie: 650,
+      exercices: [swimmingExercise, walkingExercise],
+    );
+
+    seances.addAll([seance1, seance2]);
+  }
 
   @override
   Widget build(BuildContext context) {
     // Calcul du total des calories brûlées
     int totalCalories = exercises.fold(
-        0, (previousValue, element) => previousValue + element.caloriePerdue);
+      0,
+          (previousValue, element) => previousValue + element.caloriePerdue,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -119,12 +148,29 @@ class DashboardScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // Aligner tous les éléments à gauche
           children: [
             CaloriesSummaryCard(totalCalories: totalCalories),
             const Padding(
-              padding: EdgeInsets.only(left: 16.0),
-              // Ajoute une marge de 16 pixels à gauche
+              padding: EdgeInsets.only(left: 16.0, top: 16.0),
+              child: Text(
+                'Mes séances',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: seances.length,
+              itemBuilder: (context, index) {
+                return SeanceCard(seance: seances[index]);
+              },
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16.0, top: 16.0),
               child: Text(
                 'Mes exercices',
                 style: TextStyle(
@@ -142,6 +188,9 @@ class DashboardScreen extends StatelessWidget {
                 return ExerciseCard(exercise: exercises[index]);
               },
             ),
+            const SizedBox(
+              height: 100,
+            )
           ],
         ),
       ),
