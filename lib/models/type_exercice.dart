@@ -1,20 +1,43 @@
+// models/type_exercice.dart
+
 import 'categorie_exercice.dart';
-import 'package:flutter/material.dart';
 
 class TypeExercice {
   final int id;
   final String libelle;
-  final Duration objectifDuree;
-  final int objectifCalorie;
+  final int objectifDuree; // Correspond à `objectifDurre` côté backend
+  final int objectifCalorie; // Correspond à `objectifCalorique`
+  final int? repetition;
   final CategorieExercice categorieExercice;
-  final IconData iconType;
 
   TypeExercice({
     required this.id,
     required this.libelle,
     required this.objectifDuree,
     required this.objectifCalorie,
+    this.repetition,
     required this.categorieExercice,
-    required this.iconType,
   });
+
+  factory TypeExercice.fromJson(Map<String, dynamic> json) {
+    return TypeExercice(
+      id: json['id'],
+      libelle: json['libelle'],
+      objectifDuree: json['objectifDurre'],
+      objectifCalorie: json['objectifCalorique'],
+      repetition: json['repetition'],
+      categorieExercice: CategorieExercice.fromJson(json['categorieExerciceResponse']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'libelle': libelle,
+      'objectifDurre': objectifDuree,
+      'objectifCalorique': objectifCalorie,
+      'repetition': repetition,
+      'categorieExerciceResponse': categorieExercice.toJson(),
+    };
+  }
 }

@@ -12,7 +12,7 @@ class SeanceDetailScreen extends StatelessWidget {
     // Calcul de la durée totale et des calories totales
     final totalDuration = seance.exercices.fold(
       Duration.zero,
-          (previousValue, element) => previousValue + element.dureeRealisee,
+          (previousValue, element) => previousValue + Duration(minutes: element.dureeRealisee),
     );
 
     final totalCalories = seance.exercices.fold(

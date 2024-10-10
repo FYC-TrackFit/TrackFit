@@ -41,7 +41,7 @@ class _ExerciceSeanceCardState extends State<ExerciceSeanceCard> {
   void _completeExercice() {
     widget.exerciceSeance.state = ExerciceState.completed;
     widget.exerciceSeance.timer?.cancel();
-    widget.exerciceSeance.exercice.dureeRealisee = widget.exerciceSeance.tempsEcoule;
+    widget.exerciceSeance.exercice.dureeRealisee = widget.exerciceSeance.tempsEcoule.inMinutes;
     widget.exerciceSeance.exercice.caloriePerdue = widget.exerciceSeance.objectifCalorie; // Vous pouvez ajuster cela
     widget.onStateChanged();
   }

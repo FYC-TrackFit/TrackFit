@@ -62,7 +62,7 @@ class ExerciseCard extends StatelessWidget {
                       Icon(Icons.timer, color: Colors.orange[700]),
                       const SizedBox(width: 8),
                       Text(
-                        '${exercise.dureeRealisee.inMinutes} min',
+                        '${exercise.dureeRealisee} min',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.orange[900],
@@ -142,7 +142,7 @@ class ExerciseCard extends StatelessWidget {
                             Icon(Icons.timer, color: Colors.orange[700]),
                             const SizedBox(width: 8),
                             Text(
-                              '${exercise.dureeRealisee.inMinutes} min',
+                              '${exercise.dureeRealisee} min',
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.orange[800],

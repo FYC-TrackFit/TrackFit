@@ -5,6 +5,8 @@ import '../models/exercice_seance.dart';
 import '../models/seance.dart';
 import '../models/type_exercice.dart';
 import '../widgets/exercice_seance_card.dart';
+import '../services/seance_service.dart';
+
 
 class SeanceScreen extends StatefulWidget {
   const SeanceScreen({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class SeanceScreen extends StatefulWidget {
 }
 
 class _SeanceScreenState extends State<SeanceScreen> {
+  final SeanceService _seanceService = SeanceService();
+
   List<ExerciceSeance> exercicesSeance = [];
   String seanceLibelle = 'Nouvelle Séance';
 
@@ -22,7 +26,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 1,
       libelle: 'Course à pied',
-      objectifDuree: const Duration(minutes: 30),
+      objectifDuree: 30,
       objectifCalorie: 300,
       categorieExercice: CategorieExercice(id: 1, libelle: 'Cardio'),
       iconType: Icons.directions_run,
@@ -30,7 +34,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 2,
       libelle: 'Cyclisme',
-      objectifDuree: const Duration(minutes: 60),
+      objectifDuree: 60,
       objectifCalorie: 500,
       categorieExercice: CategorieExercice(id: 1, libelle: 'Cardio'),
       iconType: Icons.directions_bike,
@@ -39,7 +43,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 3,
       libelle: 'Natation',
-      objectifDuree: const Duration(minutes: 45),
+      objectifDuree: 45,
       objectifCalorie: 400,
       categorieExercice: CategorieExercice(id: 1, libelle: 'Cardio'),
       iconType: Icons.pool,
@@ -48,7 +52,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 4,
       libelle: 'Musculation',
-      objectifDuree: const Duration(minutes: 60),
+      objectifDuree: 60,
       objectifCalorie: 300,
       categorieExercice: CategorieExercice(id: 2, libelle: 'Renforcement'),
       iconType: Icons.fitness_center,
@@ -57,7 +61,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 5,
       libelle: 'Yoga',
-      objectifDuree: const Duration(minutes: 45),
+      objectifDuree: 45,
       objectifCalorie: 150,
       categorieExercice: CategorieExercice(id: 3, libelle: 'Flexibilité'),
       iconType: Icons.self_improvement,
@@ -66,7 +70,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 6,
       libelle: 'Boxe',
-      objectifDuree: const Duration(minutes: 30),
+      objectifDuree: 30,
       objectifCalorie: 350,
       categorieExercice: CategorieExercice(id: 1, libelle: 'Cardio'),
       iconType: Icons.sports_mma,
@@ -75,7 +79,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 7,
       libelle: 'Marche',
-      objectifDuree: const Duration(minutes: 60),
+      objectifDuree: 60,
       objectifCalorie: 200,
       categorieExercice: CategorieExercice(id: 1, libelle: 'Cardio'),
       iconType: Icons.directions_walk,
@@ -84,7 +88,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 8,
       libelle: 'Escalade',
-      objectifDuree: const Duration(minutes: 90),
+      objectifDuree: 90,
       objectifCalorie: 600,
       categorieExercice: CategorieExercice(id: 2, libelle: 'Renforcement'),
       iconType: Icons.terrain,
@@ -93,7 +97,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
     TypeExercice(
       id: 9,
       libelle: 'Danse',
-      objectifDuree: const Duration(minutes: 45),
+      objectifDuree: 45,
       objectifCalorie: 250,
       categorieExercice: CategorieExercice(id: 1, libelle: 'Cardio'),
       iconType: Icons.music_note,
@@ -157,7 +161,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
                       exercice: Exercice(
                         id: typeExercice.id,
                         libelle: typeExercice.libelle,
-                        dureeRealisee: Duration.zero,
+                        dureeRealisee: 0,
                         caloriePerdue: 0,
                         typeExercice: typeExercice,
                       ),
@@ -175,19 +179,42 @@ class _SeanceScreenState extends State<SeanceScreen> {
     );
   }
 
-  void _terminerSeance() {
-    // Calcule les données finales et enregistre la séance
+  void _terminerSeance() async {
+    int totalObjectifCalorie = exercicesSeance.fold(0, (sum, e) => sum + e.objectifCalorie);
+
     final seance = Seance(
-      id: DateTime.now().millisecondsSinceEpoch,
+      id: 0, // L'ID sera attribué par le backend
       libelle: seanceLibelle,
       date: DateTime.now(),
-      objectifCalorie: exercicesSeance.fold(0, (sum, e) => sum + e.objectifCalorie),
-      exercices: exercicesSeance.map((e) => e.exercice).toList(),
+      objectifCalorie: totalObjectifCalorie,
+      sportif: Sportif(id: 1, nom: 'Dupont', prenom: 'Jean'), // Remplacez par les données réelles
+      exercices: exercicesSeance.map((e) {
+        return Exercice(
+          id: 0, // L'ID sera attribué par le backend
+          libelle: e.exercice.libelle,
+          dureeRealisee: e.tempsEcoule.inSeconds,
+          caloriePerdue: e.objectifCalorie,
+          typeExercice: e.exercice.typeExercice,
+        );
+      }).toList(),
     );
 
-    // TODO: Enregistrer la séance (par exemple, l'ajouter à une liste globale ou l'enregistrer dans une base de données)
+    try {
+      Seance createdSeance = await _seanceService.createSeance(seance);
 
-    // Réinitialise l'écran
+      // Retourner au Dashboard ou mettre à jour l'état
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Séance terminée et enregistrée')),
+      );
+    } catch (e) {
+      print('Failed to save seance: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Échec de l\'enregistrement de la séance')),
+      );
+    }
+
     setState(() {
       exercicesSeance.clear();
       seanceLibelle = 'Nouvelle Séance';
