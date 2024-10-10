@@ -1,3 +1,4 @@
+import 'dart:ui'; // Nécessaire pour utiliser l'effet de flou
 import 'package:flutter/material.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/sceances_screen.dart';
@@ -8,7 +9,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // Racine de l'application
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   // Liste des écrans correspondant à chaque onglet
-  static List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     DashboardScreen(),
     SceancesScreen(),
     OthersScreen(),
@@ -45,18 +45,81 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Contenu de l'onglet sélectionné
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard), label: 'Tableau de bord'),
-          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Séances'),
-          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'Autres'),
+      body: Stack(
+        children: [
+          // Le contenu principal derrière la BottomNavigationBar
+          _widgetOptions.elementAt(_selectedIndex),
+
+          // Positionner le BackdropFilter et la BottomNavigationBar flottante au bas de l'écran
+          Positioned(
+            bottom:
+                20, // Espace en dessous de la barre pour la rendre flottante
+            left: 20,
+            right: 20,
+            child: _buildFloatingBottomNavigationBar(),
+          ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blueAccent,
-        onTap: _onItemTapped,
+      ),
+    );
+  }
+
+  // Fonction pour construire la BottomNavigationBar stylisée avec effet de flou et flottante
+  Widget _buildFloatingBottomNavigationBar() {
+    return ClipRRect(
+      borderRadius:
+          BorderRadius.circular(30), // Coins arrondis pour l'effet flottant
+      child: Container(
+        height: 70, // Hauteur de la barre
+        decoration: BoxDecoration(
+          color: Colors.black
+              .withOpacity(0.4), // Couleur noire avec opacité de 0.6
+          borderRadius: BorderRadius.circular(30), // Coins arrondis
+        ),
+        child: Stack(
+          children: [
+            // Arrière-plan avec effet de flou
+            BackdropFilter(
+              filter: ImageFilter.blur(
+                  sigmaX: 10.0, sigmaY: 10.0), // Intensité du flou
+              child: Container(
+                color: Colors.black
+                    .withOpacity(0.3), // Couleur noire semi-transparente
+              ),
+            ),
+            // Contenu de la BottomNavigationBar
+            BottomNavigationBar(
+              backgroundColor: Colors
+                  .transparent, // Fond transparent pour montrer le flou en dessous
+              elevation: 0, // Retirer l'ombre de la BottomNavigationBar
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor:
+                  Colors.white, // Couleur de l'élément sélectionné
+              unselectedItemColor: Colors.white
+                  .withOpacity(0.6), // Couleur des éléments non sélectionnés
+              selectedFontSize: 0, // Supprime l'espace pris par les labels
+              unselectedFontSize: 0, // Supprime l'espace pris par les labels
+              iconSize: 30, // Ajuste la taille des icônes
+              showSelectedLabels: false, // Supprime l'affichage des labels
+              showUnselectedLabels: false, // Supprime l'affichage des labels
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.dashboard),
+                  label: '', // Supprime le label
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.fitness_center),
+                  label: '', // Supprime le label
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.more_horiz),
+                  label: '', // Supprime le label
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
