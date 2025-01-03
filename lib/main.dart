@@ -1,11 +1,18 @@
-import 'dart:ui'; // Nécessaire pour utiliser l'effet de flou
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_project_app/sportif/presentation/page/sportif_detail_page.dart';
+import 'package:flutter_project_app/sportif/presentation/page/sportif_liste_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/seance_screen.dart';
 import 'screens/others_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -31,8 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Liste des écrans correspondant à chaque onglet
   static final List<Widget> _widgetOptions = <Widget>[
+    const SportifListePage(),
+    const SportifDetailPage(id: 2),
     DashboardScreen(),
-    SeanceScreen(),
+    const SeanceScreen(),
     OthersScreen(),
   ];
 
@@ -103,16 +112,20 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: _onItemTapped,
               items: const [
                 BottomNavigationBarItem(
+                  icon: Icon(Icons.sports),
+                  label: 'Sportifs', // Supprime le label
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.dashboard),
+                  label: 'Sportif detail', // Supprime le label
+                ),
+                BottomNavigationBarItem(
                   icon: Icon(Icons.dashboard),
                   label: 'Résumé', // Supprime le label
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.fitness_center),
                   label: 'Ma séance', // Supprime le label
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.more_horiz),
-                  label: 'Autres', // Supprime le label
                 ),
               ],
             ),
