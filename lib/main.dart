@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_project_app/commun/router/app_router.dart';
 import 'package:flutter_project_app/sportif/presentation/page/sportif_detail_page.dart';
 import 'package:flutter_project_app/sportif/presentation/page/sportif_liste_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,12 +17,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _appRouter.config(),
       title: 'Enregistreur d\'Entraînements',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(),
+      //home: MyHomePage(),
     );
   }
 }

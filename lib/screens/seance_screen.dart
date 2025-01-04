@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_app/models/categorie_exercice.dart';
 import '../models/exercice.dart';
 import '../models/exercice_seance.dart';
-import '../models/seance.dart';
 import '../models/type_exercice.dart';
 import '../widgets/exercice_seance_card.dart';
 
@@ -176,15 +175,6 @@ class _SeanceScreenState extends State<SeanceScreen> {
   }
 
   void _terminerSeance() {
-    // Calcule les données finales et enregistre la séance
-    final seance = Seance(
-      id: DateTime.now().millisecondsSinceEpoch,
-      libelle: seanceLibelle,
-      date: DateTime.now(),
-      objectifCalorie: exercicesSeance.fold(0, (sum, e) => sum + e.objectifCalorie),
-      exercices: exercicesSeance.map((e) => e.exercice).toList(),
-    );
-
     // TODO: Enregistrer la séance (par exemple, l'ajouter à une liste globale ou l'enregistrer dans une base de données)
 
     // Réinitialise l'écran

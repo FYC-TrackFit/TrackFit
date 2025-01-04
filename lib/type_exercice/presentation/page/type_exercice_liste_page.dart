@@ -1,49 +1,36 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_app/commun/presentation/component/erreur.dart';
 import 'package:flutter_project_app/commun/presentation/component/loader.dart';
 import 'package:flutter_project_app/commun/router/app_router.dart';
-import 'package:flutter_project_app/sportif/data/dto/sportif_dto.dart';
-import 'package:flutter_project_app/sportif/domain/list/sportif_liste_provider.dart';
-import 'package:flutter_project_app/sportif/presentation/component/sportif_item_liste.dart';
+import 'package:flutter_project_app/type_exercice/data/dto/type_exercice_dto.dart';
+import 'package:flutter_project_app/type_exercice/domain/liste/type_exercice_liste_provider.dart';
+import 'package:flutter_project_app/type_exercice/presentation/component/type_exercice_item_liste.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @RoutePage()
-class SportifListePage extends ConsumerWidget {
-  const SportifListePage({super.key});
+class TypeExerciceListePage extends ConsumerWidget {
+  const TypeExerciceListePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<List<SportifDTO>> sportifsAsyncValue =
-        ref.watch(sportifListeProvider);
+    final AsyncValue<List<TypeExerciceDTO>> typesExercicesAsyncValue =
+        ref.watch(typeExerciceListeProvider);
 
-    return sportifsAsyncValue.when(
+    return typesExercicesAsyncValue.when(
       data: (
-        List<SportifDTO> sportifs,
+        List<TypeExerciceDTO> typesExercices,
       ) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Liste des sportifs"),
+            title: const Text("Liste des types d'exercices"),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
           floatingActionButton: Row(
             children: [
               OutlinedButton(
                 onPressed: () {
-                  context.router.push(const TypeExerciceListeRoute());
-                },
-                child: Icon(
-                  Icons.e_mobiledata,
-                  color: Colors.red[900],
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  ref.invalidate(sportifListeProvider);
+                  ref.invalidate(typeExerciceListeProvider);
                 },
                 child: Icon(
                   Icons.refresh,
@@ -55,7 +42,7 @@ class SportifListePage extends ConsumerWidget {
               ),
               OutlinedButton(
                 onPressed: () {
-                  context.router.push(SportifEditRoute());
+                  context.router.push(TypeExerciceEditRoute());
                 },
                 child: Icon(
                   Icons.add,
@@ -67,11 +54,11 @@ class SportifListePage extends ConsumerWidget {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
-              itemCount: sportifs.length,
+              itemCount: typesExercices.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: SportifItemListe(
-                    sportif: sportifs[index],
+                  title: TypeExerciceItemListe(
+                    typeExercice: typesExercices[index],
                   ),
                 );
               },

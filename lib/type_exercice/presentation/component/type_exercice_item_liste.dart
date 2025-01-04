@@ -3,13 +3,13 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_app/commun/router/app_router.dart';
-import 'package:flutter_project_app/sportif/data/dto/sportif_dto.dart';
+import 'package:flutter_project_app/type_exercice/data/dto/type_exercice_dto.dart';
 
-class SportifItemListe extends StatelessWidget {
-  final SportifDTO sportif;
+class TypeExerciceItemListe extends StatelessWidget {
+  final TypeExerciceDTO typeExercice;
 
-  const SportifItemListe({
-    required this.sportif,
+  const TypeExerciceItemListe({
+    required this.typeExercice,
     super.key,
   });
 
@@ -24,7 +24,7 @@ class SportifItemListe extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        context.router.push(SportifDetailRoute(id: sportif.id));
+        context.router.push(TypeExerciceDetailRoute(id: typeExercice.id));
       },
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -38,7 +38,7 @@ class SportifItemListe extends StatelessWidget {
           color: Colors.orange[800],
         ),
         title: Text(
-          "Sportif",
+          typeExercice.libelle,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -49,7 +49,14 @@ class SportifItemListe extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              sportif.prenom,
+              typeExercice.categorieExerciceResponse.libelle,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.orange[900],
+              ),
+            ),
+            Text(
+              "Objectif calorique : ${typeExercice.objectifCalorique.toString()}",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.orange[900],

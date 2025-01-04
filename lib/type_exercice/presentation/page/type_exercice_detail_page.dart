@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_app/commun/presentation/component/erreur.dart';
 import 'package:flutter_project_app/commun/presentation/component/loader.dart';
 import 'package:flutter_project_app/commun/router/app_router.dart';
-import 'package:flutter_project_app/sportif/data/dto/sportif_dto.dart';
-import 'package:flutter_project_app/sportif/domain/detail/sportif_detail_provider.dart';
-import 'package:flutter_project_app/sportif/domain/edit/sportif_edit_controller.dart';
-import 'package:flutter_project_app/sportif/domain/list/sportif_liste_provider.dart';
+import 'package:flutter_project_app/type_exercice/data/dto/type_exercice_dto.dart';
+import 'package:flutter_project_app/type_exercice/domain/detail/type_exercice_detail_provider.dart';
+import 'package:flutter_project_app/type_exercice/domain/edit/type_exercice_edit_controller.dart';
+import 'package:flutter_project_app/type_exercice/domain/liste/type_exercice_liste_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @RoutePage()
-class SportifDetailPage extends ConsumerWidget {
+class TypeExerciceDetailPage extends ConsumerWidget {
   final int id;
 
-  const SportifDetailPage({
+  const TypeExerciceDetailPage({
     required this.id,
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<SportifDTO> sportifAsyncValue =
-        ref.watch(sportifDetailProvider(id: id));
+    final AsyncValue<TypeExerciceDTO> typerExerciceAsyncValue =
+        ref.watch(typeExerciceDetailProvider(id: id));
 
-    return sportifAsyncValue.when(
-      data: (sportif) {
+    return typerExerciceAsyncValue.when(
+      data: (typeExercice) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Sportif : ${sportif.nom}"),
+            title: Text("Type exercice : ${typeExercice.libelle}"),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
           floatingActionButton: Row(
@@ -46,7 +46,7 @@ class SportifDetailPage extends ConsumerWidget {
               ),
               OutlinedButton(
                 onPressed: () async {
-                  await context.router.push(SportifEditRoute(id: id));
+                  await context.router.push(TypeExerciceEditRoute(id: id));
                 },
                 child: const Icon(Icons.edit),
               ),
@@ -64,12 +64,12 @@ class SportifDetailPage extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   leading: Icon(
-                    Icons.people_alt,
+                    Icons.sports,
                     size: 40,
                     color: Colors.purple[800],
                   ),
                   title: Text(
-                    "Sportif",
+                    "Type d'exercice",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -77,7 +77,7 @@ class SportifDetailPage extends ConsumerWidget {
                     ),
                   ),
                   subtitle: Text(
-                    "Informations générales sur le sportif",
+                    "Informations sur le type d'exercice",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.purple[900],
@@ -91,13 +91,13 @@ class SportifDetailPage extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Nom",
+                      "Libelle",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      sportif.nom,
+                      typeExercice.libelle,
                     ),
                   ],
                 ),
@@ -105,13 +105,55 @@ class SportifDetailPage extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Prénom",
+                      "Catégorie",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      sportif.prenom,
+                      typeExercice.categorieExerciceResponse.libelle,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Objectif calorique",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      typeExercice.objectifCalorique.toString(),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Objectif durrée",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      typeExercice.objectifDurre.toString(),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Nombre de répétition",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      typeExercice.repetition.toString(),
                     ),
                   ],
                 ),
@@ -133,8 +175,10 @@ class SportifDetailPage extends ConsumerWidget {
     required WidgetRef ref,
     required BuildContext context,
   }) async {
-    await ref.watch(sportifEditControllerProvider(id).notifier).supprimer();
-    ref.invalidate(sportifListeProvider);
+    await ref
+        .watch(typeExerciceEditControllerProvider(id).notifier)
+        .supprimer();
+    ref.invalidate(typeExerciceListeProvider);
     if (context.mounted && context.router.canPop()) {
       context.router.popForced();
     }
