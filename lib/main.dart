@@ -7,8 +7,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/seance_screen.dart';
 import 'screens/others_screen.dart';
+import 'dart:io';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    final client = super.createHttpClient(context);
+    // 2. On ignore la validité du certificat
+    client.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    return client;
+  }
+}
+
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(
     ProviderScope(
       child: MyApp(),
