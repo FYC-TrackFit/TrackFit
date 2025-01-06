@@ -10,6 +10,25 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AuthenticationScreen]
+class AuthenticationRoute extends PageRouteInfo<void> {
+  const AuthenticationRoute({List<PageRouteInfo>? children})
+      : super(
+          AuthenticationRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AuthenticationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return AuthenticationScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [SportifDetailPage]
 class SportifDetailRoute extends PageRouteInfo<SportifDetailRouteArgs> {
   SportifDetailRoute({

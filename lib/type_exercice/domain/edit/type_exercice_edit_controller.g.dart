@@ -7,7 +7,7 @@ part of 'type_exercice_edit_controller.dart';
 // **************************************************************************
 
 String _$typeExerciceEditControllerHash() =>
-    r'593036e6e51a4fd87b94792ca39dd8fa35e04a43';
+    r'46b8011d5962935e50b5c8fdc16d8fad81438aa7';
 
 /// Copied from Dart SDK
 class _SystemHash {

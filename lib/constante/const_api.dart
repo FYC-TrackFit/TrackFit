@@ -1,3 +1,3 @@
 class ConstApi {
-  static const url = "https://10.0.2.2:44318/api";
+  static const url = "https://192.168.143.160:44318/api";
 }
