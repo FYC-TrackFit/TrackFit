@@ -5,7 +5,7 @@ import '../widgets/exercise_card.dart';
 class SeanceDetailScreen extends StatelessWidget {
   final Seance seance;
 
-  const SeanceDetailScreen({Key? key, required this.seance}) : super(key: key);
+  const SeanceDetailScreen({super.key, required this.seance});
 
   @override
   Widget build(BuildContext context) {

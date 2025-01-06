@@ -6,7 +6,7 @@ part of 'sportif_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sportifRepositoryHash() => r'17bdc66fcb81b1e821a0cb235da1d8c9951a8595';
+String _$sportifRepositoryHash() => r'ebcdfbc58b51675d0c5662377670e699b9d60d11';
 
 /// See also [SportifRepository].
 @ProviderFor(SportifRepository)

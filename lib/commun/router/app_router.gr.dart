@@ -11,10 +11,13 @@ part of 'app_router.dart';
 
 /// generated route for
 /// [AuthenticationScreen]
-class AuthenticationRoute extends PageRouteInfo<void> {
-  const AuthenticationRoute({List<PageRouteInfo>? children})
-      : super(
+class AuthenticationRoute extends PageRouteInfo<AuthenticationRouteArgs> {
+  AuthenticationRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           AuthenticationRoute.name,
+          args: AuthenticationRouteArgs(key: key),
           initialChildren: children,
         );
 
@@ -23,7 +26,39 @@ class AuthenticationRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return AuthenticationScreen();
+      final args = data.argsAs<AuthenticationRouteArgs>(
+          orElse: () => const AuthenticationRouteArgs());
+      return AuthenticationScreen(key: args.key);
+    },
+  );
+}
+
+class AuthenticationRouteArgs {
+  const AuthenticationRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'AuthenticationRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [HomePage]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
+      : super(
+          HomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HomeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HomePage();
     },
   );
 }

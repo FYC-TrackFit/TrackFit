@@ -6,7 +6,7 @@ import '../models/type_exercice.dart';
 import '../widgets/exercice_seance_card.dart';
 
 class SeanceScreen extends StatefulWidget {
-  const SeanceScreen({Key? key}) : super(key: key);
+  const SeanceScreen({super.key});
 
   @override
   _SeanceScreenState createState() => _SeanceScreenState();
@@ -126,17 +126,17 @@ class _SeanceScreenState extends State<SeanceScreen> {
   }
 
   void _definirObjectifCalorie(TypeExercice typeExercice) {
-    final _controller = TextEditingController(text: typeExercice.objectifCalorie.toString());
+    final controller = TextEditingController(text: typeExercice.objectifCalorie.toString());
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Définir l\'objectif de calories'),
+          title: const Text('Définir l\'objectif de calories'),
           content: TextField(
-            controller: _controller,
+            controller: controller,
             keyboardType: TextInputType.number,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Calories',
             ),
           ),
@@ -145,11 +145,11 @@ class _SeanceScreenState extends State<SeanceScreen> {
               onPressed: () {
                 Navigator.pop(context); // Ferme la boîte de dialogue
               },
-              child: Text('Annuler'),
+              child: const Text('Annuler'),
             ),
             ElevatedButton(
               onPressed: () {
-                final objectifCalorie = int.tryParse(_controller.text) ?? typeExercice.objectifCalorie;
+                final objectifCalorie = int.tryParse(controller.text) ?? typeExercice.objectifCalorie;
                 setState(() {
                   exercicesSeance.add(
                     ExerciceSeance(
@@ -166,7 +166,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
                 });
                 Navigator.pop(context); // Ferme la boîte de dialogue
               },
-              child: Text('Ajouter'),
+              child: const Text('Ajouter'),
             ),
           ],
         );
@@ -175,8 +175,6 @@ class _SeanceScreenState extends State<SeanceScreen> {
   }
 
   void _terminerSeance() {
-    // TODO: Enregistrer la séance (par exemple, l'ajouter à une liste globale ou l'enregistrer dans une base de données)
-
     // Réinitialise l'écran
     setState(() {
       exercicesSeance.clear();
@@ -185,7 +183,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
 
     // Affiche une confirmation
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Séance terminée et enregistrée')),
+      const SnackBar(content: Text('Séance terminée et enregistrée')),
     );
   }
 
@@ -193,7 +191,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ma Séance'),
+        title: const Text('Ma Séance'),
       ),
       body: Column(
         children: [
@@ -201,7 +199,7 @@ class _SeanceScreenState extends State<SeanceScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Nom de la séance',
               ),
               onChanged: (value) {
@@ -231,13 +229,13 @@ class _SeanceScreenState extends State<SeanceScreen> {
             children: [
               ElevatedButton.icon(
                 onPressed: _ajouterExercice,
-                icon: Icon(Icons.add),
-                label: Text('Ajouter un exercice'),
+                icon: const Icon(Icons.add),
+                label: const Text('Ajouter un exercice'),
               ),
               ElevatedButton.icon(
                 onPressed: exercicesSeance.isNotEmpty ? _terminerSeance : null,
-                icon: Icon(Icons.stop),
-                label: Text('Terminer la séance'),
+                icon: const Icon(Icons.stop),
+                label: const Text('Terminer la séance'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.red,
                 ),

@@ -5,7 +5,8 @@ class CaloriesSummaryCard extends StatelessWidget {
   final int objectifCalories;
   final Color cardColor;
 
-  CaloriesSummaryCard({
+  const CaloriesSummaryCard({
+    super.key,
     required this.totalCalories,
     this.objectifCalories = 10000,
     this.cardColor = const Color(0xFFCCDEC1), // Couleur verte claire par défaut
@@ -13,7 +14,8 @@ class CaloriesSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double progress = (totalCalories / objectifCalories).clamp(0.0, 1.0); // Calcul du pourcentage de progression
+    double progress = (totalCalories / objectifCalories)
+        .clamp(0.0, 1.0); // Calcul du pourcentage de progression
 
     return Container(
       width: double.infinity,
@@ -30,7 +32,10 @@ class CaloriesSummaryCard extends StatelessWidget {
             children: [
               const Text(
                 'Calories',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black),
               ),
               const SizedBox(height: 30),
               Stack(
@@ -42,7 +47,8 @@ class CaloriesSummaryCard extends StatelessWidget {
                     child: CircularProgressIndicator(
                       value: progress,
                       strokeWidth: 10,
-                      backgroundColor: Colors.white.withOpacity(0.5), // Couleur plus légère pour l'arrière-plan
+                      backgroundColor: Colors.white.withOpacity(
+                          0.5), // Couleur plus légère pour l'arrière-plan
                       valueColor: const AlwaysStoppedAnimation<Color>(
                         Colors.black, // Couleur du cercle blanc transparent
                       ),
@@ -56,19 +62,23 @@ class CaloriesSummaryCard extends StatelessWidget {
                         totalCalories >= objectifCalories
                             ? '$totalCalories'
                             : '${objectifCalories - totalCalories}',
-                        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+                        style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
                       ),
                       Text(
-                        totalCalories >= objectifCalories ? '/$objectifCalories' : 'restantes',
-                        style: const TextStyle(fontSize: 18, color: Colors.black),
+                        totalCalories >= objectifCalories
+                            ? '/$objectifCalories'
+                            : 'restantes',
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.black),
                       ),
                     ],
                   ),
-
                 ],
               ),
               const SizedBox(height: 15),
-
             ],
           ),
         ),

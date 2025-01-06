@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OthersScreen extends StatelessWidget {
+  const OthersScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,7 +10,7 @@ class OthersScreen extends StatelessWidget {
         title: const Text('Autres'),
       ),
       body: const Center(
-        child: const Text('Autres fonctionnalités'),
+        child: Text('Autres fonctionnalités'),
       ),
     );
   }

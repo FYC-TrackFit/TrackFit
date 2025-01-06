@@ -5,7 +5,7 @@ import '../screens/seance_detail_screen.dart'; // Import de la nouvelle page
 class SeanceCard extends StatelessWidget {
   final Seance seance;
 
-  const SeanceCard({Key? key, required this.seance}) : super(key: key);
+  const SeanceCard({super.key, required this.seance});
 
   @override
   Widget build(BuildContext context) {

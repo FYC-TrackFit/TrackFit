@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter_appauth/flutter_appauth.dart';
 
 class AuthenticationService {
-  final FlutterAppAuth _appAuth = FlutterAppAuth();
+  final FlutterAppAuth _appAuth = const FlutterAppAuth();
 
   // Configuration Keycloak
   final String _clientId = 'flutter-client';
@@ -14,7 +16,7 @@ class AuthenticationService {
   /// Login user with Keycloak
   Future<bool> login() async {
     try {
-      final TokenResponse? result = await _appAuth.authorizeAndExchangeCode(
+      final TokenResponse result = await _appAuth.authorizeAndExchangeCode(
         AuthorizationTokenRequest(
           _clientId,
           _redirectUri,
@@ -23,19 +25,19 @@ class AuthenticationService {
           allowInsecureConnections: true,
         ),
       );
-      print("Success: ${result?.accessToken}");
+      log("Success: ${result.accessToken}");
 
-      _accessToken = result?.accessToken;
+      _accessToken = result.accessToken;
 
       if (_accessToken != null) {
-        print("Login successful! Access Token: $_accessToken");
+        log("Login successful! Access Token: $_accessToken");
         return true; // Login réussi
       } else {
-        print("Login failed. No access token received.");
+        log("Login failed. No access token received.");
         return false; // Login échoué
       }
     } catch (e) {
-      print("Login error: $e");
+      log("Login error: $e");
       return false; // En cas d'erreur
     }
   }
