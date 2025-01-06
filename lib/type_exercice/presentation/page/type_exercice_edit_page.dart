@@ -164,38 +164,6 @@ class TypeExerciceEditPage extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Objectif Durée",
-                              textAlign: TextAlign.start,
-                            ),
-                            TextFormField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              keyboardType: TextInputType.number,
-                              initialValue:
-                                  typeExercice.objectifDurre.toString(),
-                              onChanged: (objectifDurre) async {
-                                await ref
-                                    .watch(
-                                        typeExerciceEditControllerProvider(id)
-                                            .notifier)
-                                    .mettreAJour(
-                                      (typeExercice) => typeExercice.copyWith(
-                                        objectifDurre:
-                                            int.tryParse(objectifDurre),
-                                      ),
-                                    );
-                              },
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
                               "Nombre de répétitions",
                               textAlign: TextAlign.start,
                             ),
