@@ -59,7 +59,7 @@ class AuthenticationScreen extends StatelessWidget {
                         if (loginSuccessful) {
                           // Navigue vers SportifListeRoute après une connexion réussi
                           if (context.mounted) {
-                            context.router.push(const SportifListeRoute());
+                            context.router.push(const HomeRoute());
                           }
                         } else {
                           // Affiche une erreur si le login échoue
